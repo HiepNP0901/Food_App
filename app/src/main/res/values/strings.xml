@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Food App</string>
+    <string name="splash_description">Deliver Favorite Food</string>
+    <string name="onboarding_description">Enjoy Restaurant Quality Meals at Home</string>
+
+
+    <!-- Strings related to login - register -->
+    <string name="login_title">Login To Your Account</string>
+    <string name="prompt_email">Email or Phone Number</string>
+    <string name="prompt_password">Password</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="name">Name</string>
+    <string name="don_t_have_account">Don’t Have Account?</string>
+    <string name="login_action">Login</string>
+    <string name="already_have_an_account">Already Have An Account?</string>
+    <string name="create_account">Create Account</string>
+    <string name="registerTitle">Sign Up Here</string>
+    <string name="continue_with">Continue With</string>
+    <string name="sign_up_with">Sign Up With</string>
+
+    <!-- Strings related to location -->
+    <string name="location_title">Choose Your Location</string>
+    <string name="choose_location">Choose location</string>
+    <string name="choose_location_description">To provide you with the best dining experience, we need your permission to access your device\'s location. By enabling location services, we can offer personalized restaurant recommendations, accurate delivery estimates, and ensure a seamless food delivery experience.\"</string>
+    <string name="done">Done</string>
+
+</resources>

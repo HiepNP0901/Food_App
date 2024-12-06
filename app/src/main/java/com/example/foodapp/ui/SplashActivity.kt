@@ -7,20 +7,29 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.foodapp.R
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import kotlin.properties.Delegates
 
 //Splash Screen sẽ hiển thị trong 3s
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private var isFirstTime by Delegates.notNull<Boolean>()
+    private var auth = Firebase.auth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         isFirstTime = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstTime", true)
+
         val nextActivity = if (isFirstTime) OnboardingActivity::class.java else LoginActivity::class.java
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                startActivity(Intent(this, nextActivity))
+                if (auth.currentUser != null) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+                else{
+                    startActivity(Intent(this, nextActivity))
+                }
                 finish()
             }, 3000
         )

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import com.example.foodapp.databinding.ActivityLocationBinding
 
 class LocationActivity : AppCompatActivity() {
@@ -24,8 +25,15 @@ class LocationActivity : AppCompatActivity() {
         val autoCompleteTextView = binding.listOfLocation
         autoCompleteTextView.setAdapter(adapter)
 
-        autoCompleteTextView.setOnItemClickListener { adapterView, view, i, l ->
-            autoCompleteTextView.error = null
+        autoCompleteTextView.doAfterTextChanged {
+            if(autoCompleteTextView.text.toString() == "Choose location"){
+                autoCompleteTextView.error="Please choose a location"
+                autoCompleteTextView.requestFocus()
+            }
+            else{
+                autoCompleteTextView.error= null
+                autoCompleteTextView.requestFocus()
+            }
         }
 
         binding.locationDoneButton.setOnClickListener{

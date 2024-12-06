@@ -3,6 +3,7 @@ package com.example.foodapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
@@ -23,7 +24,36 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val username= binding.username
         val password= binding.password
+        editTextChange(username, password)
 
+        binding.loginButton.setOnClickListener{
+            if(username.text.toString().isEmpty()){
+                username.error="This field cannot be empty"
+                username.requestFocus()
+            }
+            else if(password.text.toString().isEmpty()){
+                password.error="This field cannot be empty"
+                password.requestFocus()
+            }
+            else if(username.error == null && password.error == null){
+                val result = AuthResponsible().login(username.text.toString(), password.text.toString())
+                if (result.isSuccess){
+                    Toast.makeText(this, result.getOrNull(), Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                else{
+                    Toast.makeText(this, result.exceptionOrNull()?.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        binding.dontHaveAccountButton.setOnClickListener{
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
+    }
+
+    private fun editTextChange(username: EditText, password: EditText){
         binding.username.doAfterTextChanged {
             if(!Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()){
                 username.error="Please enter a valid email or phone number"
@@ -44,32 +74,6 @@ class LoginActivity : AppCompatActivity() {
                 password.error= null
                 password.requestFocus()
             }
-        }
-
-        binding.loginButton.setOnClickListener{
-            if(username.text.toString().isEmpty()){
-                username.error="This field cannot be empty"
-                username.requestFocus()
-            }
-            else if(password.text.toString().isEmpty()){
-                password.error="This field cannot be empty"
-                password.requestFocus()
-            }
-            else if(username.error == null && password.error == null){
-                val result = AuthResponsible().login(username.text.toString(), password.text.toString())
-                if (result.isSuccess){
-                    Toast.makeText(this, result.getOrNull(), Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finishAffinity()
-                }
-                else{
-                    Toast.makeText(this, result.exceptionOrNull()?.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        binding.dontHaveAccountButton.setOnClickListener{
-            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 }

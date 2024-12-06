@@ -1,36 +1,41 @@
 package com.example.foodapp.data
 
 import android.util.Patterns
-import com.example.foodapp.data.model.LoggedInUser
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import java.io.IOException
 
 class AuthResponsible {
-    private val usersRef = FirebaseAuth.getInstance()
+    private val auth = Firebase.auth
 
     fun login(username: String, password: String): Result<String> {
-        return try {
-            when {
-                username == "admin@gmail.com" && password == "123456" -> Result.success("Login Successful")
-                else -> Result.failure(IOException("Email/phone number or password is incorrect"))
+        val email = if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) username else ""
+        //val phone = if (Patterns.PHONE.matcher(username).matches()) username else ""
+        var result: Result<String> = Result.failure(IOException("Login Failed"))
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                val currentUser = auth.currentUser
+                result = if (currentUser?.isEmailVerified == false) {
+                    Result.failure(IOException("Please verify your email"))
+                } else{
+                    Result.success("Login Successful")
+                }
             }
-        } catch (e: Exception) {
-            Result.failure(IOException("Error logging in", e))
-        }
+            .addOnFailureListener { exception ->
+                result = Result.failure(IOException("Login Failed", exception))
+            }
+        return result
     }
-    fun register(name: String, username: String, password: String): Result<String>{
-         try {
-            val email = if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) username else ""
-            val phone = if (Patterns.PHONE.matcher(username).matches()) username else ""
-//            usersRef.createUserWithEmailAndPassword(email, password)
-            return Result.success("Registration Successful")
-        } catch (e: Exception){
-            return Result.failure(IOException("Error registering", e))
-        }
+
+    fun register(name: String, username: String, password: String): String {
+        val email = if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) username else ""
+        //val phone = if (Patterns.PHONE.matcher(username).matches()) username else ""
+        //TODO: send verification code to email or phone number
+        auth.createUserWithEmailAndPassword(email, password)
+        return "Hello $name, your account has been created successfully"
     }
 
     fun logout(){
-        usersRef.signOut()
+        auth.signOut()
     }
 }

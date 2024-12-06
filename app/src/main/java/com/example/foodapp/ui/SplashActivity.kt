@@ -1,4 +1,4 @@
-package com.example.foodapp
+package com.example.foodapp.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.foodapp.R
 import kotlin.properties.Delegates
 
 //Splash Screen sẽ hiển thị trong 3s

@@ -41,20 +41,28 @@ class RegisterActivity : AppCompatActivity() {
                 password.requestFocus()
             }
             else if (name.error == null && username.error == null && password.error == null) {
-                val result = AuthResponsible().register(
+                AuthResponsible().register(
                     name.text.toString(),
                     username.text.toString(),
                     password.text.toString()
-                )
-                Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LocationActivity::class.java))
-                finish()
+                ) { result ->
+                    when {
+                        result.isSuccess -> {
+                            Toast.makeText(this, result.getOrNull(), Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finish()
+                        }
+                        result.isFailure -> {
+                            Toast.makeText(this, result.exceptionOrNull()?.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
 
         binding.alreadyHaveAccountButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            finishAffinity()
         }
     }
 

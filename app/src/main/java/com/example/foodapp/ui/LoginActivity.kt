@@ -36,14 +36,21 @@ class LoginActivity : AppCompatActivity() {
                 password.requestFocus()
             }
             else if(username.error == null && password.error == null){
-                val result = AuthResponsible().login(username.text.toString(), password.text.toString())
-                if (result.isSuccess){
-                    Toast.makeText(this, result.getOrNull(), Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                }
-                else{
-                    Toast.makeText(this, result.exceptionOrNull()?.message, Toast.LENGTH_SHORT).show()
+                AuthResponsible().login(username.text.toString(), password.text.toString()){
+                    result -> when{
+                        result.isSuccess -> {
+                            Toast.makeText(this, result.getOrNull(), Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+                        result.isFailure -> {
+                            Toast.makeText(
+                                this,
+                                result.exceptionOrNull()?.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 }
             }
         }

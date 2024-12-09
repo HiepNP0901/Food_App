@@ -9,7 +9,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.foodapp" />
+                  <option name="appId" value="com.drs.food" />
                   <option name="mobileSdkAppId" value="1:578113343549:android:d35e6988560dfbe0255a54" />
                   <option name="projectId" value="food-app-061224" />
                   <option name="projectNumber" value="578113343549" />

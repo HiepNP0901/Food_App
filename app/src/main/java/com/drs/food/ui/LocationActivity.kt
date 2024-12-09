@@ -1,11 +1,11 @@
-package com.example.foodapp.ui
+package com.drs.food.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import com.example.foodapp.databinding.ActivityLocationBinding
+import com.drs.food.databinding.ActivityLocationBinding
 
 class LocationActivity : AppCompatActivity() {
     private val binding: ActivityLocationBinding by lazy {

@@ -1,4 +1,4 @@
-package com.example.foodapp.ui
+package com.drs.food.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.example.foodapp.R
+import com.drs.food.R
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import kotlin.properties.Delegates

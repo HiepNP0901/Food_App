@@ -1,9 +1,9 @@
-package com.example.foodapp.ui
+package com.drs.food.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.foodapp.databinding.ActivityOnboardingBinding
+import com.drs.food.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {
     private val binding: ActivityOnboardingBinding by lazy {

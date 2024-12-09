@@ -8,17 +8,17 @@
     tools:context=".ui.RegisterActivity">
 
     <ImageView
-        android:id="@+id/loginLogo"
+        android:id="@+id/logo"
         android:layout_width="91dp"
         android:layout_height="92dp"
         android:importantForAccessibility="no"
-        app:layout_constraintBottom_toTopOf="@+id/loginAppName"
-        app:layout_constraintEnd_toEndOf="@+id/loginAppName"
-        app:layout_constraintStart_toStartOf="@+id/loginAppName"
+        app:layout_constraintBottom_toTopOf="@+id/appName"
+        app:layout_constraintEnd_toEndOf="@+id/appName"
+        app:layout_constraintStart_toStartOf="@+id/appName"
         app:srcCompat="@drawable/background_logo" />
 
     <TextView
-        android:id="@+id/loginAppName"
+        android:id="@+id/appName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -41,13 +41,13 @@
         android:text="@string/splash_description"
         android:textColor="@color/normal_text_color"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textLoginToYourAccount"
-        app:layout_constraintEnd_toEndOf="@+id/textLoginToYourAccount"
+        app:layout_constraintBottom_toTopOf="@+id/textTitle"
+        app:layout_constraintEnd_toEndOf="@+id/textTitle"
         app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toStartOf="@+id/textLoginToYourAccount" />
+        app:layout_constraintStart_toStartOf="@+id/textTitle" />
 
     <TextView
-        android:id="@+id/textLoginToYourAccount"
+        android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"
@@ -82,9 +82,9 @@
         android:textColor="@color/normal_text_color"
         android:textColorHint="@color/edit_text_color"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/textLoginToYourAccount"
-        app:layout_constraintStart_toStartOf="@+id/textLoginToYourAccount"
-        app:layout_constraintTop_toBottomOf="@+id/textLoginToYourAccount" />
+        app:layout_constraintEnd_toEndOf="@+id/textTitle"
+        app:layout_constraintStart_toStartOf="@+id/textTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     <EditText
         android:id="@+id/username"
@@ -169,7 +169,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textOr"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginFacebookButton"
+        android:id="@+id/facebookButton"
         android:layout_width="152dp"
         android:layout_height="57dp"
         android:layout_marginTop="20dp"
@@ -189,7 +189,7 @@
         tools:ignore="HardcodedText" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginGoogleButton"
+        android:id="@+id/googleButton"
         android:layout_width="152dp"
         android:layout_height="57dp"
         android:layout_marginTop="20dp"
@@ -220,10 +220,21 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/loginGoogleButton"
-        app:layout_constraintStart_toStartOf="@+id/loginFacebookButton"
-        app:layout_constraintTop_toBottomOf="@+id/loginFacebookButton"
+        app:layout_constraintEnd_toEndOf="@+id/googleButton"
+        app:layout_constraintStart_toStartOf="@+id/facebookButton"
+        app:layout_constraintTop_toBottomOf="@+id/facebookButton"
         tools:ignore="TextSizeCheck" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/createAccount"
+        app:layout_constraintEnd_toEndOf="@+id/createAccount"
+        app:layout_constraintStart_toStartOf="@+id/createAccount"
+        app:layout_constraintTop_toTopOf="@+id/createAccount" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/alreadyHaveAccountButton"

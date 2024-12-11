@@ -1,11 +1,11 @@
-package com.drs.food.service
+package com.drs.foodys.service
 
 import android.app.Service
 import android.content.Intent
 import android.os.*
 import android.widget.Toast
-import com.drs.food.ui.LoginActivity
-import com.drs.food.ui.MainActivity
+import com.drs.foodys.ui.auth.LoginActivity
+import com.drs.foodys.ui.home.HomeActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -19,6 +19,8 @@ class AuthService : Service() {
             val intent = msg.obj as Intent
             when (intent.action) {
                 ACTION_LOGIN -> handleLogin(intent)
+                GOOGLE_SIGN_IN -> handleGoogleSignIn(intent)
+                FACEBOOK_SIGN_IN -> handleFacebookSignIn(intent)
                 ACTION_REGISTER -> handleRegister(intent)
                 ACTION_LOGOUT -> handleLogout()
             }
@@ -46,6 +48,8 @@ class AuthService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onDestroy() {
+        super.onDestroy()
+        serviceLooper?.quit()
     }
 
     private fun handleLogin(intent: Intent?) {
@@ -58,12 +62,21 @@ class AuthService : Service() {
                 if (currentUser?.isEmailVerified == false) {
                     sendResult("Please verify your email")
                 } else {
-                    sendResult("Login Successful", MainActivity::class.java)
+                    sendResult("Login Successful", HomeActivity::class.java)
                 }
             }
             .addOnFailureListener { exception ->
                 sendResult(exception.message ?: "Login Failed")
             }
+    }
+
+    private fun handleGoogleSignIn(intent: Intent?) {
+        sendResult("Google SignIn")
+    }
+
+
+    private fun handleFacebookSignIn(intent: Intent?) {
+        sendResult("Facebook SignIn")
     }
 
     private fun handleRegister(intent: Intent?) {
@@ -98,6 +111,8 @@ class AuthService : Service() {
 
     companion object {
         const val ACTION_LOGIN = "com.drs.food.LOGIN"
+        const val GOOGLE_SIGN_IN = "com.drs.food.GOOGLE_SIGN_IN"
+        const val FACEBOOK_SIGN_IN = "com.drs.food.FACEBOOK_SIGN_IN"
         const val ACTION_REGISTER = "com.drs.food.REGISTER"
         const val ACTION_LOGOUT = "com.drs.food.LOGOUT"
         const val RESULT = "com.drs.food.auth.RESULT"

@@ -1,4 +1,4 @@
-package com.drs.food.ui
+package com.drs.foodys.ui.auth
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
@@ -11,8 +11,10 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import com.drs.food.databinding.ActivityRegisterBinding
-import com.drs.food.service.AuthService
+import com.drs.foodys.R
+import com.drs.foodys.databinding.ActivityRegisterBinding
+import com.drs.foodys.service.AuthService
+import com.drs.foodys.ui.auth.fragment.LogoFragment
 
 class RegisterActivity : AppCompatActivity() {
     private val binding: ActivityRegisterBinding by lazy {
@@ -23,13 +25,26 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var password: EditText
     private lateinit var filter: IntentFilter
     private lateinit var receiver: BroadcastReceiver
+    private lateinit var fragment: LogoFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Set the content view using the binding object
         setContentView(binding.root)
+
+        // Initialize the fragment
+        fragment = LogoFragment.setTitle(getString(R.string.register_title))
+        supportFragmentManager.beginTransaction().add(binding.containerFragment.id, fragment).commit()
+
+        // Initialize the views
         name = binding.name
         username = binding.username
         password = binding.password
+        setBindingButton()
+        setBindingEditText()
+
+        // Initialize the receiver and filter
         filter = IntentFilter(AuthService.RESULT)
         receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
@@ -46,11 +61,15 @@ class RegisterActivity : AppCompatActivity() {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     override fun onStart() {
         super.onStart()
-        setBindingButton()
-        setBindingEditText()
         registerReceiver(receiver, filter)
     }
 
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(receiver)
+    }
+
+    // Set the click listeners for the buttons
     private fun setBindingButton() {
         binding.createAccount.setOnClickListener {
             if (name.text.toString().isEmpty()) {
@@ -74,12 +93,25 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+        binding.googleButton.setOnClickListener {
+            startService(Intent(this, AuthService::class.java).apply {
+                action = AuthService.GOOGLE_SIGN_IN
+            })
+        }
+
+        binding.facebookButton.setOnClickListener {
+            startService(Intent(this, AuthService::class.java).apply {
+                action = AuthService.FACEBOOK_SIGN_IN
+            })
+        }
+
         binding.alreadyHaveAccountButton.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finishAffinity()
         }
     }
 
+    // Set action do after text changed for the edit text
     private fun setBindingEditText() {
         binding.name.doAfterTextChanged {
             if (name.text.toString().isEmpty()) {

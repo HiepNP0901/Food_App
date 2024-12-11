@@ -1,4 +1,4 @@
-package com.drs.food.ui
+package com.drs.foodys.ui.home
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
@@ -7,12 +7,12 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.drs.food.databinding.ActivityMainBinding
-import com.drs.food.service.AuthService
+import com.drs.foodys.databinding.ActivityHomeBinding
+import com.drs.foodys.service.AuthService
 
-class MainActivity : AppCompatActivity() {
-    val binding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
+class HomeActivity : AppCompatActivity() {
+    val binding: ActivityHomeBinding by lazy {
+        ActivityHomeBinding.inflate(layoutInflater)
     }
     private lateinit var filter: IntentFilter
     private lateinit var receiver: BroadcastReceiver
@@ -24,17 +24,11 @@ class MainActivity : AppCompatActivity() {
         receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 intent?.getStringExtra("nextActivity")?.let {
-                    startActivity(Intent(this@MainActivity, Class.forName(it)))
+                    startActivity(Intent(this@HomeActivity, Class.forName(it)))
                     finishAffinity()
                 }
             }
         }
-    }
-
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    override fun onStart() {
-        super.onStart()
-        registerReceiver(receiver, filter)
         binding.logout.setOnClickListener {
             startService(Intent(this, AuthService::class.java).apply {
                 action = AuthService.ACTION_LOGOUT
@@ -42,8 +36,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    override fun onStart() {
+        super.onStart()
+        registerReceiver(receiver, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
         unregisterReceiver(receiver)
     }
 }

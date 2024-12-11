@@ -1,4 +1,4 @@
-package com.drs.food.ui
+package com.drs.foodys.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.drs.food.R
+import com.drs.foodys.R
+import com.drs.foodys.ui.auth.LoginActivity
+import com.drs.foodys.ui.home.HomeActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import kotlin.properties.Delegates
@@ -25,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed(
             {
                 if (auth.currentUser != null) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java))
                 }
                 else{
                     startActivity(Intent(this, nextActivity))

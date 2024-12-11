@@ -1,9 +1,10 @@
-package com.drs.food.ui
+package com.drs.foodys.ui
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.drs.food.databinding.ActivityOnboardingBinding
+import com.drs.foodys.databinding.ActivityOnboardingBinding
+import com.drs.foodys.ui.auth.LoginActivity
 
 class OnboardingActivity : AppCompatActivity() {
     private val binding: ActivityOnboardingBinding by lazy {

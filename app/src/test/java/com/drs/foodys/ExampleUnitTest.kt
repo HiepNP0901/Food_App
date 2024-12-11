@@ -1,4 +1,4 @@
-package com.drs.food
+package com.drs.foodys
 
 import org.junit.Test
 

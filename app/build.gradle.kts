@@ -5,17 +5,18 @@ plugins {
 }
 
 android {
-    namespace = "com.drs.food"
+    namespace = "com.drs.foodys"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.drs.food"
+        applicationId = "com.drs.foodys"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        applicationIdSuffix = "Foodys"
     }
 
     buildFeatures {
@@ -51,6 +52,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation(libs.play.services.auth)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
